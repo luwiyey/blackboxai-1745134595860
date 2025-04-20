@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Manual - Pan Pacific University Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <a href="index.html" class="text-xl font-bold text-gray-800">Pan Pacific University Library</a>
+                </div>
+                <div>
+                    <a href="index.html" class="text-gray-600 hover:text-gray-800">
+                        <i class="fas fa-home mr-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Student Manual</h1>
+
+            <!-- Quick Links -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Quick Links</h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <a href="#library-card" class="bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition-colors">
+                        <i class="fas fa-id-card text-blue-600 mb-2"></i>
+                        <span class="block text-blue-900">Library Card</span>
+                    </a>
+                    <a href="#borrowing" class="bg-green-50 p-4 rounded-lg hover:bg-green-100 transition-colors">
+                        <i class="fas fa-book text-green-600 mb-2"></i>
+                        <span class="block text-green-900">Borrowing</span>
+                    </a>
+                    <a href="#facilities" class="bg-purple-50 p-4 rounded-lg hover:bg-purple-100 transition-colors">
+                        <i class="fas fa-building text-purple-600 mb-2"></i>
+                        <span class="block text-purple-900">Facilities</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Library Card Section -->
+            <div id="library-card" class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-id-card text-3xl text-blue-600 mr-4"></i>
+                    <h2 class="text-2xl font-semibold text-gray-800">Library Card</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-2">Getting Your Card</h3>
+                        <p class="text-gray-600">
+                            Visit the library with your student ID to get your library card. The card is valid for your entire academic stay.
+                        </p>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-2">Card Usage</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Required for borrowing books and materials</li>
+                            <li>Access to electronic resources</li>
+                            <li>Entry to restricted library areas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Borrowing Section -->
+            <div id="borrowing" class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-book text-3xl text-green-600 mr-4"></i>
+                    <h2 class="text-2xl font-semibold text-gray-800">Borrowing Guidelines</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-2">Loan Periods</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>General Books: 14 days</li>
+                            <li>Reserved Books: 3 days</li>
+                            <li>Magazines: 7 days</li>
+                            <li>Multimedia: 3 days</li>
+                        </ul>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-2">Renewals</h3>
+                        <p class="text-gray-600">
+                            Books can be renewed twice if no one has reserved them. Renewal can be done online or at the circulation desk.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facilities Section -->
+            <div id="facilities" class="bg-white rounded-lg shadow-sm p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-building text-3xl text-purple-600 mr-4"></i>
+                    <h2 class="text-2xl font-semibold text-gray-800">Facilities</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-2">Study Areas</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Individual study carrels</li>
+                            <li>Group study rooms</li>
+                            <li>Silent reading areas</li>
+                        </ul>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-2">Computer Labs</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Internet access</li>
+                            <li>Printing services</li>
+                            <li>Scanning facilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rules and Regulations -->
+            <div class="bg-white rounded-lg shadow-sm p-8">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-gavel text-3xl text-red-600 mr-4"></i>
+                    <h2 class="text-2xl font-semibold text-gray-800">Rules and Regulations</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-2">General Rules</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Maintain silence in designated areas</li>
+                            <li>No food and drinks in the library</li>
+                            <li>Handle library materials with care</li>
+                            <li>Follow the dress code</li>
+                        </ul>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-2">Penalties</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Late returns: Fine per day</li>
+                            <li>Damaged materials: Replacement cost</li>
+                            <li>Lost items: Full cost plus processing fee</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <p>© 2025 Pan Pacific University Library. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
