@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pan Pacific University Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .bg-upd-green {
+            background-color: #004225;
+        }
+        .bg-upd-maroon {
+            background-color: #5C0000;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1a365d 0%, #164e63 100%);
+        }
+        .nav-item {
+            position: relative;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            padding: 0.5rem 0;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.1);
+            min-width: 220px;
+            z-index: 50;
+            margin-top: 0.25rem;
+        }
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+        .nav-item > a {
+            display: inline-block;
+            padding: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex justify-between items-center py-1.5 px-4 border-b">
+        <div>
+            <a href="/" class="no-underline">
+                <h1 class="text-[20px] font-bold text-blue-900 leading-tight">Pan Pacific<br>University</h1>
+                <p class="text-gray-600 text-[12px]">University Library</p>
+            </a>
+        </div>
+        <div class="flex items-center space-x-3">
+            <nav class="flex space-x-5 relative">
+                <div class="nav-item">
+                    <a href="#" class="text-gray-600 hover:text-blue-900 py-1 text-sm inline-block">About</a>
+                    <div class="dropdown-menu py-1 bg-white">
+                        <a href="history.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">History</a>
+                        <a href="library-hours.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Library Hours</a>
+                        <a href="staff-directory.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Staff Directory</a>
+                        <a href="floor-directory.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Floor Directory</a>
+                        <a href="vision.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Vision</a>
+                        <a href="mission.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Mission</a>
+                        <a href="student-manual.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Student Manual</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="text-gray-600 hover:text-blue-900 py-1 text-sm inline-block">Policies</a>
+                    <div class="dropdown-menu py-1 bg-white">
+                        <a href="borrowing-guidelines.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Borrowing Guidelines</a>
+                        <a href="copyright-policy.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Copyright Policy</a>
+                        <a href="privacy-policy.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="text-gray-600 hover:text-blue-900 py-1 text-sm inline-block">Request</a>
+                    <div class="dropdown-menu py-1 bg-white">
+                        <a href="journal-subscription.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Journal Subscription</a>
+                        <a href="research-consultation.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Research Consultation</a>
+                        <a href="library-orientation.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Library Orientation</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="text-gray-600 hover:text-blue-900 py-1 text-sm inline-block">Search</a>
+                    <div class="dropdown-menu py-1 bg-white">
+                        <a href="#" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Library Catalog</a>
+                        <a href="#" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">E-Resources</a>
+                        <a href="digital-archives.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Digital Archives</a>
+                        <a href="#" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Theses Database</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="text-gray-600 hover:text-blue-900 py-1 text-sm inline-block">Inquire</a>
+                    <div class="dropdown-menu py-1 bg-white">
+                        <a href="ask-librarian.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Ask a Librarian</a>
+                        <a href="faqs.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">FAQs</a>
+                        <a href="contact.html" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Contact Us</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="text-gray-600 hover:text-blue-900 py-1 text-sm inline-block">Publications</a>
+                    <div class="dropdown-menu py-1 bg-white">
+                        <a href="#" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Research Papers</a>
+                        <a href="#" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Journals</a>
+                        <a href="#" class="block px-4 py-1.5 text-sm text-gray-700 hover:bg-gray-50">Newsletter</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <a href="login.html" class="bg-blue-900 hover:bg-blue-800 text-white px-3 py-1.5 rounded text-sm flex items-center gap-1.5">
+                    <i class="fas fa-sign-in-alt text-[13px]"></i>
+                    <span>Login</span>
+                </a>
+                <a href="register.html" class="bg-white hover:bg-gray-50 text-blue-900 px-3 py-1.5 rounded text-sm flex items-center gap-1.5 border border-blue-900">
+                    <i class="fas fa-user-plus text-[13px]"></i>
+                    <span>Register</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="min-h-[70vh] bg-gradient-to-r from-blue-900 to-teal-800 relative">
+        <img src="https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg" 
+             alt="Library" 
+             class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-20">
+        <div class="container mx-auto px-4 pt-32 text-center relative z-10">
+            <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">Welcome to Pan Pacific<br>University Library</h2>
+            <p class="text-2xl text-white/90 mb-8">Your Gateway to Knowledge and Discovery</p>
+
+            <div class="max-w-5xl mx-auto bg-black/20 rounded-xl p-6 backdrop-blur-md">
+                <h3 class="text-3xl font-semibold text-white mb-8">Saliktroniko</h3>
+                
+                <div class="flex justify-center mb-6 border-b border-white/20">
+                    <button class="px-8 py-3 text-white font-medium border-b-2 border-white">Tuklas</button>
+                    <button class="px-8 py-3 text-white font-medium">Databases</button>
+                    <button class="px-8 py-3 text-white font-medium">Journals</button>
+                    <button class="px-8 py-3 text-white font-medium">This Website</button>
+                </div>
+
+                <div class="relative mb-6">
+                    <input type="text" 
+                           placeholder="Search UPD Library Collection" 
+                           class="w-full px-6 py-5 text-xl rounded-lg bg-white/10 text-white placeholder-white/70 focus:outline-none border-2 border-white/20 focus:border-white/40"
+                    >
+                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white text-blue-900 px-8 py-3 rounded-md hover:bg-gray-100 transition-colors font-semibold">
+                        <i class="fas fa-search mr-2"></i>Search
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-4 gap-4">
+                    <a href="#" class="bg-white/10 text-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-white/20 transition-colors">
+                        <i class="fas fa-book text-3xl mb-2"></i>
+                        <span>Library Catalog</span>
+                    </a>
+                    <a href="#" class="bg-white/10 text-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-white/20 transition-colors">
+                        <i class="fas fa-database text-3xl mb-2"></i>
+                        <span>Online Resources</span>
+                    </a>
+                    <a href="#" class="bg-white/10 text-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-white/20 transition-colors">
+                        <i class="fas fa-graduation-cap text-3xl mb-2"></i>
+                        <span>Research Guides</span>
+                    </a>
+                    <a href="#" class="bg-white/10 text-white rounded-lg p-4 flex flex-col items-center justify-center hover:bg-white/20 transition-colors">
+                        <i class="fas fa-clock text-3xl mb-2"></i>
+                        <span>Library Hours</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                <h4 class="text-white font-semibold">Guidelines for the Onsite Service of the Main Library</h4>
+                <a href="#" class="text-white/80 hover:text-white underline">Read More →</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-16">
+        <div class="grid grid-cols-4 gap-8 mb-16">
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="text-4xl font-bold text-maroon-900 mb-2">50K+</h3>
+                <p class="text-gray-600">Books</p>
+            </div>
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="text-4xl font-bold text-maroon-900 mb-2">100+</h3>
+                <p class="text-gray-600">Databases</p>
+            </div>
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="text-4xl font-bold text-maroon-900 mb-2">5K+</h3>
+                <p class="text-gray-600">E-Journals</p>
+            </div>
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <h3 class="text-4xl font-bold text-maroon-900 mb-2">24/7</h3>
+                <p class="text-gray-600">Online Access</p>
+            </div>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-8">Our Services</h2>
+        <div class="grid grid-cols-3 gap-12 mb-16">
+            <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
+                <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-8">
+                    <i class="fas fa-book text-red-900 text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Physical Library</h3>
+                <p class="text-gray-600 mb-8 text-lg">Access our extensive collection of books, journals, and multimedia resources</p>
+                <ul class="space-y-4">
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        Study spaces
+                    </li>
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        Research assistance
+                    </li>
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        Print materials
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
+                <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-8">
+                    <i class="fas fa-laptop text-red-900 text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Digital Library</h3>
+                <p class="text-gray-600 mb-8 text-lg">24/7 access to our digital resources from anywhere</p>
+                <ul class="space-y-4">
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        E-books
+                    </li>
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        Online journals
+                    </li>
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        Digital archives
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow">
+                <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-8">
+                    <i class="fas fa-robot text-red-900 text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Smart Features</h3>
+                <p class="text-gray-600 mb-8 text-lg">Enhanced library experience with AI-powered tools</p>
+                <ul class="space-y-4">
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        Voice search
+                    </li>
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        Book recommendations
+                    </li>
+                    <li class="flex items-center text-gray-600 text-lg">
+                        <i class="fas fa-check text-green-500 mr-4"></i>
+                        Virtual assistance
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-8">Latest Resources</h2>
+        <div class="grid grid-cols-4 gap-8 mb-16">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <img src="https://images.pexels.com/photos/2041540/pexels-photo-2041540.jpeg" alt="Introduction to AI" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold mb-2">Introduction to AI</h3>
+                    <p class="text-gray-600">Stuart Russell</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" alt="Data Science Fundamentals" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold mb-2">Data Science Fundamentals</h3>
+                    <p class="text-gray-600">John Smith</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <img src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg" alt="Modern Web Development" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold mb-2">Modern Web Development</h3>
+                    <p class="text-gray-600">Sarah Johnson</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <img src="https://images.pexels.com/photos/7376/startup-photos.jpg" alt="Business Analytics" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold mb-2">Business Analytics</h3>
+                    <p class="text-gray-600">Michael Brown</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-8">Smart Features</h2>
+        <div class="grid grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div class="bg-red-50 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-microphone text-red-900 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Voice Search</h3>
+                <p class="text-gray-600">Search for books and resources using voice commands</p>
+            </div>
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div class="bg-red-50 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-hand-pointer text-red-900 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Gesture Control</h3>
+                <p class="text-gray-600">Navigate the digital library using hand gestures</p>
+            </div>
+            <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div class="bg-red-50 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-brain text-red-900 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4">AI Recommendations</h3>
+                <p class="text-gray-600">Get personalized book recommendations</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About Us</h3>
+                    <p class="text-gray-400">Pan Pacific University Library serves as the knowledge hub for our academic community, providing resources and services that support learning, teaching, and research.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt w-5 mr-2"></i>
+                            123 University Avenue, Quezon City
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone w-5 mr-2"></i>
+                            +63 (2) 8123-4567
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope w-5 mr-2"></i>
+                            library@panpacificu.edu.ph
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Download Our App</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-white text-black px-4 py-2 rounded-lg flex items-center hover:bg-gray-100">
+                            <i class="fab fa-google-play text-2xl mr-2"></i>
+                            <div>
+                                <div class="text-xs">GET IT ON</div>
+                                <div class="font-semibold">Google Play</div>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-white text-black px-4 py-2 rounded-lg flex items-center hover:bg-gray-100">
+                            <i class="fab fa-apple text-2xl mr-2"></i>
+                            <div>
+                                <div class="text-xs">Download on the</div>
+                                <div class="font-semibold">App Store</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>© 2025 Pan Pacific University Library. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
