@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Settings Demo - PPU Library</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<style>
+  body.high-contrast {
+    background-color: black;
+    color: white;
+  }
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-start py-10" id="body">
+  <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-8">
+    <h1 class="text-3xl font-semibold mb-6 text-center">Settings Demo</h1>
+
+    <form id="settingsForm" class="space-y-8">
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Customization Settings</h2>
+        <div class="flex items-center mb-4">
+          <label for="high_contrast" class="mr-3 font-medium">High Contrast Mode</label>
+          <input type="checkbox" id="high_contrast" name="high_contrast" />
+        </div>
+        <div class="mb-4">
+          <label for="font_size" class="block font-medium mb-1">Font Size: <span id="fontSizeValue">16</span>px</label>
+          <input type="range" id="font_size" name="font_size" min="12" max="24" value="16" class="w-full" />
+        </div>
+        <div class="flex items-center mb-4">
+          <label for="screen_reader_enabled" class="mr-3 font-medium">Screen Reader Settings</label>
+          <div>
+            <label class="mr-4"><input type="radio" name="screen_reader_enabled" value="1" checked /> Enabled</label>
+            <label><input type="radio" name="screen_reader_enabled" value="0" /> Disabled</label>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <label for="voice_navigation_enabled" class="mr-3 font-medium">Voice-Controlled Navigation</label>
+          <input type="checkbox" id="voice_navigation_enabled" name="voice_navigation_enabled" />
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Account & Privacy Management</h2>
+        <div class="mb-4">
+          <label class="block font-medium mb-1">Account Name</label>
+          <input type="text" value="Demo User" disabled class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 cursor-not-allowed" />
+        </div>
+        <div class="mb-4">
+          <label class="block font-medium mb-1">Email</label>
+          <input type="email" value="demo@example.com" disabled class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 cursor-not-allowed" />
+        </div>
+        <div class="flex items-center mb-4">
+          <input type="checkbox" id="email_notifications" name="email_notifications" checked />
+          <label for="email_notifications" class="ml-2 font-medium">Receive Email Notifications</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="two_factor_auth" name="two_factor_auth" />
+          <label for="two_factor_auth" class="ml-2 font-medium">Enable Two-factor Authentication</label>
+        </div>
+      </section>
+
+      <div class="mt-8 flex justify-center">
+        <button type="submit" class="bg-ppu-blue text-white px-6 py-3 rounded hover:bg-ppu-light-blue transition-colors">Save Settings</button>
+      </div>
+    </form>
+
+    <div id="message" class="mt-4 text-center text-green-600 font-semibold hidden">Settings saved (demo only)</div>
+  </div>
+
+  <script>
+    const body = document.getElementById('body');
+    const highContrastCheckbox = document.getElementById('high_contrast');
+    const fontSizeRange = document.getElementById('font_size');
+    const fontSizeValue = document.getElementById('fontSizeValue');
+    const message = document.getElementById('message');
+
+    function applySettings() {
+      if (highContrastCheckbox.checked) {
+        body.classList.add('high-contrast');
+      } else {
+        body.classList.remove('high-contrast');
+      }
+      body.style.fontSize = fontSizeRange.value + 'px';
+      fontSizeValue.textContent = fontSizeRange.value;
+    }
+
+    highContrastCheckbox.addEventListener('change', applySettings);
+    fontSizeRange.addEventListener('input', applySettings);
+
+    document.getElementById('settingsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Demo: just show a message
+      message.classList.remove('hidden');
+      setTimeout(() => message.classList.add('hidden'), 3000);
+    });
+
+    // Initialize
+    applySettings();
+  </script>
+</body>
+</html>
