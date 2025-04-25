@@ -20,8 +20,35 @@ $conn = $db->getConnection();
 $book = new Book($conn);
 $user = new User($conn);
 
-// For demonstration, return top popular books as recommendations
-$recommendations = $book->getPopularBooks(6);
+$userId = $_SESSION['user']['id'];
+
+// Get user course
+$userSql = "SELECT course FROM users WHERE id = ?";
+$userStmt = $conn->prepare($userSql);
+$userStmt->bind_param("i", $userId);
+$userStmt->execute();
+$userResult = $userStmt->get_result();
+$userRow = $userResult->fetch_assoc();
+$userCourse = $userRow['course'] ?? null;
+
+if ($userCourse) {
+    // Get popular books in user's course category or related tags
+    $sql = "SELECT b.*, COUNT(l.id) as borrow_count
+            FROM books b
+            LEFT JOIN loans l ON b.id = l.book_id
+            WHERE b.category = ? OR JSON_CONTAINS(b.tags, JSON_QUOTE(?))
+            GROUP BY b.id
+            ORDER BY borrow_count DESC
+            LIMIT 6";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $userCourse, $userCourse);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $recommendations = $result->fetch_all(MYSQLI_ASSOC);
+} else {
+    // Fallback to top popular books
+    $recommendations = $book->getPopularBooks(6);
+}
 
 echo json_encode($recommendations);
 ?>
