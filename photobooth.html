@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Digital Photobooth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .animate-pulse-slow {
+            animation: pulse 2s infinite;
+        }
+        .tooltip {
+            position: relative;
+        }
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Digital Photobooth</h1>
+            <p class="text-gray-600 mt-2">Take your photos and create beautiful photo strips!</p>
+            <p class="text-sm text-gray-500 mt-2">Please allow camera access when prompted to use the photobooth</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="relative min-h-[400px] bg-gray-100 rounded-lg">
+                    <div id="camera-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg">
+                        <div class="text-center">
+                            <div class="animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-blue-500 border-r-blue-500 mb-4 shadow-lg"></div>
+                            <p class="text-gray-600">Initializing camera...</p>
+                            <p class="text-sm text-gray-500 mt-2">This may take a few seconds</p>
+                        </div>
+                    </div>
+                    <div id="browser-support" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg hidden">
+                        <div class="text-center px-4">
+                            <i class="fas fa-exclamation-triangle text-4xl text-yellow-500 mb-3"></i>
+                            <p class="text-gray-600 mb-2">Your browser doesn't support camera access</p>
+                            <p class="text-sm text-gray-500">Please try using a modern browser like Chrome, Firefox, or Safari</p>
+                        </div>
+                    </div>
+                    <div id="camera-error" class="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg hidden">
+                        <div class="text-center px-4">
+                            <i class="fas fa-exclamation-circle text-4xl text-red-500 mb-3"></i>
+                            <p class="text-gray-600 mb-3">Unable to access camera. Please make sure you have:</p>
+                            <ul class="text-sm text-gray-500 text-left list-disc pl-4">
+                                <li>Granted camera permissions in your browser</li>
+                                <li>A working camera connected to your device</li>
+                                <li>No other applications using your camera</li>
+                            </ul>
+                            <button onclick="initWebcam()" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-all duration-200 transform hover:scale-105 active:scale-95 tooltip" data-tooltip="Attempt to reconnect camera">
+                                <i class="fas fa-redo mr-2"></i>Try Again
+                            </button>
+                        </div>
+                    </div>
+                    <video id="video" class="w-full rounded-lg" autoplay playsinline></video>
+                    <canvas id="canvas" class="hidden"></canvas>
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+                        <div id="countdown" class="text-2xl font-bold text-white bg-black bg-opacity-50 px-4 py-2 rounded-lg mb-4 hidden"></div>
+                        <button id="capture" class="bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-full shadow-lg transition-all transform hover:scale-105 active:scale-95 flex items-center space-x-2 animate-pulse-slow tooltip" data-tooltip="Click to capture photos">
+                            <i class="fas fa-camera text-xl"></i>
+                            <span class="font-semibold">Take Photo</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Number of Photos</label>
+                        <select id="photoCount" class="w-full border rounded-lg px-4 py-2">
+                            <option value="1">1 Photo</option>
+                            <option value="2">2 Photos</option>
+                            <option value="3">3 Photos</option>
+                            <option value="4" selected>4 Photos</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Timer Delay</label>
+                        <select id="timerDelay" class="w-full border rounded-lg px-4 py-2">
+                            <option value="1">1 Second</option>
+                            <option value="3" selected>3 Seconds</option>
+                            <option value="5">5 Seconds</option>
+                            <option value="10">10 Seconds</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Layout Style</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button class="bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-lg active">Photobooth</button>
+                            <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-all duration-200 tooltip" data-tooltip="Switch to film strip layout">Film Strip</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Background Color</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="w-full h-8 bg-pink-200 rounded cursor-pointer"></div>
+                            <div class="w-full h-8 bg-blue-200 rounded cursor-pointer"></div>
+                            <div class="w-full h-8 bg-green-200 rounded cursor-pointer"></div>
+                            <div class="w-full h-8 bg-gray-200 rounded cursor-pointer"></div>
+                            <div class="w-full h-8 bg-yellow-200 rounded cursor-pointer"></div>
+                            <div class="w-full h-8 bg-purple-200 rounded cursor-pointer"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Custom Text</label>
+                        <input id="customTextInput" type="text" class="w-full border rounded-lg px-4 py-2" placeholder="Enter text to display at bottom" />
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Select University Logo</label>
+                        <div class="flex space-x-4">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="logoSelect" value="logo1" class="hidden" checked />
+                                <img src="https://i.imgur.com/0Xq6Q0M.png" alt="Logo 1" class="w-24 h-auto border-2 border-blue-500 rounded-lg" />
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="logoSelect" value="logo2" class="hidden" />
+                                <img src="https://i.imgur.com/6Xq6Q0M.png" alt="Logo 2" class="w-24 h-auto border-2 border-transparent rounded-lg hover:border-blue-500" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="preview" class="mt-8 bg-white rounded-lg shadow-lg p-6 hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Photo Strip</h2>
+            <div class="flex justify-center">
+                <div id="photoStrip" class="bg-white p-4 rounded-lg shadow"></div>
+            </div>
+            <div class="flex justify-center mt-4 space-x-4">
+                <button id="retake" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 tooltip" data-tooltip="Start over with new photos">
+                    <i class="fas fa-redo mr-2"></i>Retake
+                </button>
+                <button id="download" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 tooltip" data-tooltip="Download photo strip">
+                    <i class="fas fa-download mr-2"></i>Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app-enhanced-v2.js"></script>
+</body>
+</html>
