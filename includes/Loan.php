@@ -9,14 +9,14 @@ class Loan {
     }
 
     /**
-     * Issue a new loan
+     * Issue a new loan with borrowing limit check
      */
     public function issueLoan($data) {
         try {
             // Check if user has reached their loan limit
             $userLoanCount = $this->getUserActiveLoanCount($data['user_id']);
             $userRole = $this->getUserRole($data['user_id']);
-            $maxLoans = $userRole === 'faculty' ? 5 : 3; // Faculty can borrow more books
+            $maxLoans = $userRole === 'faculty' ? 10 : 5; // Updated limits: Faculty 10, others 5
 
             if ($userLoanCount >= $maxLoans) {
                 throw new Exception("User has reached their maximum loan limit");
