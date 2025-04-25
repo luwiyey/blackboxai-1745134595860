@@ -372,4 +372,99 @@ class Statistics {
             return 0;
         }
     }
+
+    /**
+     * Get borrowing behavior by user role for the past 12 months
+     */
+    public function getBorrowingBehaviorByUserRole() {
+        try {
+            $sql = "SELECT u.role, DATE_FORMAT(l.borrow_date, '%Y-%m') as month, COUNT(*) as count
+                    FROM loans l
+                    JOIN users u ON l.user_id = u.id
+                    WHERE l.borrow_date >= DATE_SUB(CURRENT_DATE, INTERVAL 12 MONTH)
+                    GROUP BY u.role, month
+                    ORDER BY month ASC";
+            
+            $result = $this->conn->query($sql);
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[$row['role']][$row['month']] = (int)$row['count'];
+            }
+            return $data;
+        } catch (Exception $e) {
+            error_log("Error getting borrowing behavior by user role: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    /**
+     * Get reading engagement by course/class for the past 12 months
+     */
+    public function getReadingEngagementByCourse() {
+        try {
+            $sql = "SELECT u.course, DATE_FORMAT(l.borrow_date, '%Y-%m') as month, COUNT(*) as count
+                    FROM loans l
+                    JOIN users u ON l.user_id = u.id
+                    WHERE l.borrow_date >= DATE_SUB(CURRENT_DATE, INTERVAL 12 MONTH)
+                    GROUP BY u.course, month
+                    ORDER BY month ASC";
+            
+            $result = $this->conn->query($sql);
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[$row['course']][$row['month']] = (int)$row['count'];
+            }
+            return $data;
+        } catch (Exception $e) {
+            error_log("Error getting reading engagement by course: " . $e->getMessage());
+            return [];
+        }
+    /**
+     * Get borrowing trends by department for the past 12 months
+     */
+    public function getBorrowingTrendsByDepartment() {
+        try {
+            $sql = "SELECT u.department, DATE_FORMAT(l.borrow_date, '%Y-%m') as month, COUNT(*) as count
+                    FROM loans l
+                    JOIN users u ON l.user_id = u.id
+                    WHERE l.borrow_date >= DATE_SUB(CURRENT_DATE, INTERVAL 12 MONTH)
+                    GROUP BY u.department, month
+                    ORDER BY month ASC";
+            
+            $result = $this->conn->query($sql);
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[$row['department']][$row['month']] = (int)$row['count'];
+            }
+            return $data;
+        } catch (Exception $e) {
+            error_log("Error getting borrowing trends by department: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    /**
+     * Get reading engagement by department for the past 12 months
+     */
+    public function getReadingEngagementByDepartment() {
+        try {
+            $sql = "SELECT u.department, DATE_FORMAT(l.borrow_date, '%Y-%m') as month, COUNT(*) as count
+                    FROM loans l
+                    JOIN users u ON l.user_id = u.id
+                    WHERE l.borrow_date >= DATE_SUB(CURRENT_DATE, INTERVAL 12 MONTH)
+                    GROUP BY u.department, month
+                    ORDER BY month ASC";
+            
+            $result = $this->conn->query($sql);
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[$row['department']][$row['month']] = (int)$row['count'];
+            }
+            return $data;
+        } catch (Exception $e) {
+            error_log("Error getting reading engagement by department: " . $e->getMessage());
+            return [];
+        }
+    }
+}
 }
