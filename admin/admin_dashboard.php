@@ -63,38 +63,44 @@ $recentActivities = $stats->getRecentActivities();
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto px-6 py-8">
-        <h2 class="text-2xl font-semibold mb-6 text-ppu-blue">Dashboard Overview</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow flex items-center space-x-4">
-                <i class="fas fa-books fa-3x text-ppu-blue"></i>
-                <div>
-                    <p class="text-gray-500">Total Books</p>
-                    <p class="text-3xl font-semibold"><?php echo $totalBooks; ?></p>
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <h2 class="text-2xl font-semibold mb-6 text-ppu-blue">Dashboard Overview</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow flex items-center space-x-4">
+                    <i class="fas fa-books fa-3x text-ppu-blue"></i>
+                    <div>
+                        <p class="text-gray-500">Total Books</p>
+                        <p class="text-3xl font-semibold"><?php echo $totalBooks; ?></p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow flex items-center space-x-4">
+                    <i class="fas fa-users fa-3x text-ppu-green"></i>
+                    <div>
+                        <p class="text-gray-500">Active Users</p>
+                        <p class="text-3xl font-semibold"><?php echo $totalUsers; ?></p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow flex items-center space-x-4">
+                    <i class="fas fa-hand-holding fa-3x text-yellow-500"></i>
+                    <div>
+                        <p class="text-gray-500">Active Loans</p>
+                        <p class="text-3xl font-semibold"><?php echo $activeLoans; ?></p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow flex items-center space-x-4">
+                    <i class="fas fa-exclamation-circle fa-3x text-red-500"></i>
+                    <div>
+                        <p class="text-gray-500">Overdue Books</p>
+                        <p class="text-3xl font-semibold"><?php echo $overdueLoans; ?></p>
+                    </div>
                 </div>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow flex items-center space-x-4">
-                <i class="fas fa-users fa-3x text-ppu-green"></i>
-                <div>
-                    <p class="text-gray-500">Active Users</p>
-                    <p class="text-3xl font-semibold"><?php echo $totalUsers; ?></p>
-                </div>
+
+            <div class="mt-6">
+                <a href="department_dashboard.php" class="inline-block bg-ppu-blue text-white px-6 py-3 rounded-md hover:bg-ppu-light-blue transition duration-300">
+                    <i class="fas fa-chart-line mr-2"></i> Department Dashboard
+                </a>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow flex items-center space-x-4">
-                <i class="fas fa-hand-holding fa-3x text-yellow-500"></i>
-                <div>
-                    <p class="text-gray-500">Active Loans</p>
-                    <p class="text-3xl font-semibold"><?php echo $activeLoans; ?></p>
-                </div>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow flex items-center space-x-4">
-                <i class="fas fa-exclamation-circle fa-3x text-red-500"></i>
-                <div>
-                    <p class="text-gray-500">Overdue Books</p>
-                    <p class="text-3xl font-semibold"><?php echo $overdueLoans; ?></p>
-                </div>
-            </div>
-        </div>
 
         <div class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="bg-white rounded-lg shadow p-6">
