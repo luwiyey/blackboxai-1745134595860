@@ -8,203 +8,31 @@ class Book {
     }
 
     /**
-     * Update tags for a book
+     * Add tags for a book (replace existing tags)
      */
-    public function updateTags($bookId, array $tags) {
+    public function setTags($bookId, array $tags) {
         try {
-            $tagsJson = json_encode($tags);
-            $sql = "UPDATE {$this->table} SET tags = ? WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("si", $tagsJson, $bookId);
-            return $stmt->execute();
+            // Delete existing tags
+            $sqlDelete = "DELETE FROM book_tags WHERE book_id = ?";
+            $stmtDelete = $this->conn->prepare($sqlDelete);
+            $stmtDelete->bind_param("i", $bookId);
+            $stmtDelete->execute();
+
+            // Insert new tags
+            $sqlInsert = "INSERT INTO book_tags (book_id, tag_id) VALUES (?, ?)";
+            $stmtInsert = $this->conn->prepare($sqlInsert);
+
+            foreach ($tags as $tagId) {
+                $stmtInsert->bind_param("ii", $bookId, $tagId);
+                $stmtInsert->execute();
+            }
+            return true;
         } catch (Exception $e) {
-            error_log("Error updating book tags: " . $e->getMessage());
+            error_log("Error setting book tags: " . $e->getMessage());
             return false;
         }
     }
 
-    /**
-     * Get tags for a book
-     */
-    public function getTags($bookId) {
-        try {
-            $sql = "SELECT tags FROM {$this->table} WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("i", $bookId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
-            return $row ? json_decode($row['tags'], true) : [];
-        } catch (Exception $e) {
-            error_log("Error getting book tags: " . $e->getMessage());
-            return [];
-        }
-    }
-
-    /**
-     * Update cover image path for a book
-     */
-    public function updateCover($bookId, $coverPath) {
-        try {
-            $sql = "UPDATE {$this->table} SET cover = ? WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("si", $coverPath, $bookId);
-            return $stmt->execute();
-        } catch (Exception $e) {
-            error_log("Error updating book cover: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Get cover image path for a book
-     */
-    public function getCover($bookId) {
-        try {
-            $sql = "SELECT cover FROM {$this->table} WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("i", $bookId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
-            return $row ? $row['cover'] : null;
-        } catch (Exception $e) {
-            error_log("Error getting book cover: " . $e->getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Update PDF snippet for a book
-     */
-    public function updatePdfSnippet($bookId, $snippet) {
-        try {
-            $sql = "UPDATE {$this->table} SET pdf_snippet = ? WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("si", $snippet, $bookId);
-            return $stmt->execute();
-        } catch (Exception $e) {
-            error_log("Error updating PDF snippet: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Get PDF snippet for a book
-     */
-    public function getPdfSnippet($bookId) {
-        try {
-            $sql = "SELECT pdf_snippet FROM {$this->table} WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("i", $bookId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
-            return $row ? $row['pdf_snippet'] : null;
-        } catch (Exception $e) {
-            error_log("Error getting PDF snippet: " . $e->getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Add a book review
-     */
-    public function addReview($bookId, $userId, $rating, $review) {
-        try {
-            $sql = "INSERT INTO book_reviews (book_id, user_id, rating, review) VALUES (?, ?, ?, ?)";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("iiis", $bookId, $userId, $rating, $review);
-            return $stmt->execute();
-        } catch (Exception $e) {
-            error_log("Error adding book review: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Get reviews for a book
-     */
-    public function getReviews($bookId) {
-        try {
-            $sql = "SELECT br.*, u.name as user_name FROM book_reviews br JOIN users u ON br.user_id = u.id WHERE br.book_id = ? ORDER BY br.created_at DESC";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("i", $bookId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            return $result->fetch_all(MYSQLI_ASSOC);
-        } catch (Exception $e) {
-            error_log("Error getting book reviews: " . $e->getMessage());
-            return [];
-        }
-    }
-
-    /**
-     * Update reading status for a user and book
-     */
-    public function updateReadingStatus($userId, $bookId, $status) {
-        try {
-            $sql = "INSERT INTO user_books (user_id, book_id, reading_status) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE reading_status = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("iiss", $userId, $bookId, $status, $status);
-            return $stmt->execute();
-        } catch (Exception $e) {
-            error_log("Error updating reading status: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Get reading status for a user and book
-     */
-    public function getReadingStatus($userId, $bookId) {
-        try {
-            $sql = "SELECT reading_status FROM user_books WHERE user_id = ? AND book_id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("ii", $userId, $bookId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
-            return $row ? $row['reading_status'] : null;
-        } catch (Exception $e) {
-            error_log("Error getting reading status: " . $e->getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Update tags for a book
-     */
-    public function updateTags($bookId, array $tags) {
-        try {
-            $tagsJson = json_encode($tags);
-            $sql = "UPDATE {$this->table} SET tags = ? WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("si", $tagsJson, $bookId);
-            return $stmt->execute();
-        } catch (Exception $e) {
-            error_log("Error updating book tags: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Get tags for a book
-     */
-    public function getTags($bookId) {
-        try {
-            $sql = "SELECT tags FROM {$this->table} WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("i", $bookId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
-            return $row ? json_decode($row['tags'], true) : [];
-        } catch (Exception $e) {
-            error_log("Error getting book tags: " . $e->getMessage());
-            return [];
-        }
-    }
 
     /**
      * Update cover image path for a book
@@ -343,12 +171,12 @@ class Book {
     public function add($data) {
         try {
             $sql = "INSERT INTO {$this->table} (isbn, title, author, publisher, publication_year, 
-                    category, description, total_copies, available_copies, price, status) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'available')";
+                    category, description, total_copies, available_copies, price, shelf_code, status) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'available')";
             
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param(
-                "sssssssiid",
+                "ssssssssids",
                 $data['isbn'],
                 $data['title'],
                 $data['author'],
@@ -358,10 +186,16 @@ class Book {
                 $data['description'],
                 $data['total_copies'],
                 $data['total_copies'], // Initially, available copies equals total copies
-                $data['price']
+                $data['price'],
+                $data['shelf_code'] ?? null
             );
 
-            return $stmt->execute();
+            $result = $stmt->execute();
+            if ($result && isset($data['tags'])) {
+                $bookId = $this->conn->insert_id;
+                $this->setTags($bookId, $data['tags']);
+            }
+            return $result;
         } catch (Exception $e) {
             error_log("Error adding book: " . $e->getMessage());
             return false;
@@ -386,12 +220,12 @@ class Book {
             $sql = "UPDATE {$this->table} 
                     SET isbn = ?, title = ?, author = ?, publisher = ?, 
                         publication_year = ?, category = ?, description = ?, 
-                        total_copies = ?, available_copies = ?, price = ? 
+                        total_copies = ?, available_copies = ?, price = ?
                     WHERE id = ?";
             
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param(
-                "sssssssiddi",
+                "sssssssidi",
                 $data['isbn'],
                 $data['title'],
                 $data['author'],
@@ -405,7 +239,11 @@ class Book {
                 $id
             );
 
-            return $stmt->execute();
+            $result = $stmt->execute();
+            if ($result && isset($data['tags'])) {
+                $this->setTags($id, $data['tags']);
+            }
+            return $result;
         } catch (Exception $e) {
             error_log("Error updating book: " . $e->getMessage());
             return false;
