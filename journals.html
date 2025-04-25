@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Journals - Pan Pacific University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .bg-upd-green {
+            background-color: #004225;
+        }
+        .bg-upd-maroon {
+            background-color: #5C0000;
+        }
+        .dropdown-menu {
+            display: none;
+        }
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+        .section-title {
+            border-bottom: 4px solid #4F7F3A; /* ppu-green */
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(79, 127, 58, 0.9), rgba(79, 127, 58, 0.9));
+        }
+        .search-btn {
+            background-color: #4F7F3A; /* ppu-green */
+        }
+        .search-btn:hover {
+            background-color: #3a5a27;
+        }
+        .icon-box {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #4F7F3A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .icon-box i {
+            font-size: 2rem;
+            color: #4F7F3A;
+            transition: all 0.3s ease;
+        }
+        .quick-link:hover .icon-box {
+            background-color: #4F7F3A;
+        }
+        .quick-link:hover .icon-box i {
+            color: white;
+        }
+        .pagination-active {
+            background-color: #4F7F3A;
+        }
+        .pagination-hover:hover {
+            background-color: #3a5a27;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Green Bar -->
+    <div class="bg-upd-green h-8">
+        <div class="container mx-auto px-4 flex justify-end items-center h-full">
+            <a href="login.html" class="text-white hover:text-gray-200 text-sm">Sign In</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-upd-maroon">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center space-x-4 py-5">
+                <a href="index.php" class="text-white hover:text-gray-200 no-underline">
+                    <div class="text-white">
+                        <h1 class="text-2xl font-semibold">Journals</h1>
+                        <p class="text-sm mt-1">Pan Pacific University</p>
+                    </div>
+                </a>
+            </div>
+            <nav class="flex space-x-8 py-2 text-sm">
+                <a href="index.php" class="text-white hover:text-gray-200">HOME</a>
+                <a href="library-catalog.html" class="text-white hover:text-gray-200">LIBRARY CATALOG</a>
+                <a href="digital-archives.html" class="text-white hover:text-gray-200">DIGITAL ARCHIVES</a>
+                <a href="e-resources.html" class="text-white hover:text-gray-200">E-RESOURCES</a>
+                <a href="journals.html" class="text-white hover:text-gray-200">SEARCH</a>
+                <a href="newsletters.html" class="text-white hover:text-gray-200">NEWSLETTERS</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Search Section -->
+    <div class="bg-white py-8">
+        <div class="container mx-auto px-4 flex justify-center space-x-4">
+            <select class="w-48 px-4 py-2 border rounded bg-white">
+                <option>Any Field</option>
+                <option>Title</option>
+                <option>Author</option>
+                <option>Publisher</option>
+                <option>Subject / Keyword</option>
+                <option>Contents</option>
+                <option>Abstract</option>
+            </select>
+            <input type="text" 
+                   placeholder="Search journals..." 
+                   class="flex-1 max-w-2xl px-4 py-2 border rounded"
+            />
+            <button class="search-btn text-white px-8 py-2 rounded hover:bg-opacity-90">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="container mx-auto px-4 py-16">
+        <h2 class="text-xl font-semibold mb-8">
+            <span class="section-title">Journals Collection</span>
+        </h2>
+        <p class="text-gray-700 mb-6">Browse the collection of journals available at Pan Pacific University Library.</p>
+        <!-- Placeholder for journals items -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="border rounded p-6 bg-white shadow hover:shadow-lg transition">
+                <h3 class="font-semibold text-lg mb-2">Journal Title 1</h3>
+                <p class="text-gray-600">Publisher: Publisher 1</p>
+                <p class="text-gray-600">Year: 2023</p>
+                <p class="text-gray-600">Category: Science</p>
+            </div>
+            <div class="border rounded p-6 bg-white shadow hover:shadow-lg transition">
+                <h3 class="font-semibold text-lg mb-2">Journal Title 2</h3>
+                <p class="text-gray-600">Publisher: Publisher 2</p>
+                <p class="text-gray-600">Year: 2022</p>
+                <p class="text-gray-600">Category: Arts</p>
+            </div>
+            <div class="border rounded p-6 bg-white shadow hover:shadow-lg transition">
+                <h3 class="font-semibold text-lg mb-2">Journal Title 3</h3>
+                <p class="text-gray-600">Publisher: Publisher 3</p>
+                <p class="text-gray-600">Year: 2021</p>
+                <p class="text-gray-600">Category: Business</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6 text-center">
+        <a href="index.php" class="inline-block bg-ppu-green text-white px-6 py-3 rounded hover:bg-green-700 transition">
+            Return to Home
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 mt-16">
+        <div class="container mx-auto px-4 py-12 text-gray-300 text-sm flex justify-between">
+            <div>© 2024 Pan Pacific University Library</div>
+            <div>
+                <a href="privacy-policy.html" class="hover:text-white mr-4">Privacy Policy</a>
+                <a href="copyright-policy.html" class="hover:text-white">Copyright Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
