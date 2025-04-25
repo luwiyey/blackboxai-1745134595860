@@ -141,11 +141,16 @@ $summary = [
     'monthly_registrations' => $stats->getMonthlyRegistrationCount()
 ];
 
-// Get popular books
 $popularBooks = $stats->getPopularBooks();
 
 // Get recent activity
 $recentActivity = $stats->getRecentActivity();
+
+// Get borrowing behavior by user role
+$borrowingBehavior = $stats->getBorrowingBehaviorByUserRole();
+
+// Get reading engagement by course/class
+$readingEngagement = $stats->getReadingEngagementByCourse();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -389,6 +394,25 @@ $recentActivity = $stats->getRecentActivity();
         </div>
     </div>
 
+    <!-- Additional Charts -->
+    <div class="container mx-auto px-6 py-8">
+        <h3 class="text-gray-700 text-2xl font-medium mb-8">Additional Analytics</h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Borrowing Behavior by User Role -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h4 class="text-gray-700 text-lg font-medium mb-4">Borrowing Behavior by User Role (Last 12 Months)</h4>
+                <canvas id="borrowingBehaviorChart"></canvas>
+            </div>
+
+            <!-- Reading Engagement by Course/Class -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h4 class="text-gray-700 text-lg font-medium mb-4">Reading Engagement by Course/Class (Last 12 Months)</h4>
+                <canvas id="readingEngagementChart"></canvas>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Monthly Loans Chart
         const loansCtx = document.getElementById('loansChart').getContext('2d');
@@ -427,6 +451,93 @@ $recentActivity = $stats->getRecentActivity();
                     data: <?php echo json_encode(array_values($summary['monthly_registrations'])); ?>,
                     backgroundColor: '#4F7F3A'
                 }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        // Reading Engagement by Course/Class Chart
+        const readingCtx = document.getElementById('readingEngagementChart').getContext('2d');
+        const readingLabels = Object.keys(<?php echo json_encode($readingEngagement); ?>[Object.keys(<?php echo json_encode($readingEngagement); ?>)[0]] || {});
+        const readingDatasets = Object.entries(<?php echo json_encode($readingEngagement); ?>).map(([course, data]) => ({
+            label: course || 'Unknown',
+            data: readingLabels.map(month => data[month] || 0),
+            fill: false,
+            borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
+            tension: 0.1
+        }));
+        new Chart(readingCtx, {
+            type: 'line',
+            data: {
+                labels: readingLabels,
+                datasets: readingDatasets
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        // Borrowing Behavior by User Role Chart
+        const borrowingCtx = document.getElementById('borrowingBehaviorChart').getContext('2d');
+        const borrowingLabels = Object.keys(<?php echo json_encode($borrowingBehavior); ?>[Object.keys(<?php echo json_encode($borrowingBehavior); ?>)[0]] || {});
+        const borrowingDatasets = Object.entries(<?php echo json_encode($borrowingBehavior); ?>).map(([role, data]) => ({
+            label: role.charAt(0).toUpperCase() + role.slice(1),
+            data: borrowingLabels.map(month => data[month] || 0),
+            fill: false,
+            borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
+            tension: 0.1
+        }));
+        new Chart(borrowingCtx, {
+            type: 'line',
+            data: {
+                labels: borrowingLabels,
+                datasets: borrowingDatasets
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        // Reading Engagement by Course/Class Chart
+        const readingCtx = document.getElementById('readingEngagementChart').getContext('2d');
+        const readingLabels = Object.keys(<?php echo json_encode($readingEngagement); ?>[Object.keys(<?php echo json_encode($readingEngagement); ?>)[0]] || {});
+        const readingDatasets = Object.entries(<?php echo json_encode($readingEngagement); ?>).map(([course, data]) => ({
+            label: course || 'Unknown',
+            data: readingLabels.map(month => data[month] || 0),
+            fill: false,
+            borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
+            tension: 0.1
+        }));
+        new Chart(readingCtx, {
+            type: 'line',
+            data: {
+                labels: readingLabels,
+                datasets: readingDatasets
             },
             options: {
                 responsive: true,
