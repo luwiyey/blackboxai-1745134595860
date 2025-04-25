@@ -26,6 +26,83 @@ session_start();
     </script>
 </head>
 <body class="bg-white">
+
+<!-- Library Chatbot Assistant -->
+<div id="chatbot" class="fixed bottom-6 right-6 z-50">
+    <button id="chatbotToggle" class="bg-ppu-blue text-white rounded-full w-14 h-14 shadow-lg flex items-center justify-center hover:bg-ppu-light-blue transition-colors" aria-label="Open Chatbot">
+        <i class="fas fa-comment-alt"></i>
+    </button>
+    <div id="chatbotWindow" class="hidden flex flex-col bg-white rounded-lg shadow-lg w-80 h-96 mt-2 overflow-hidden">
+        <div class="bg-ppu-blue text-white p-4 flex justify-between items-center">
+            <h3 class="font-semibold">Library Chatbot</h3>
+            <button id="chatbotClose" aria-label="Close Chatbot" class="hover:text-gray-300">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="chatbotMessages" class="flex-1 p-4 overflow-y-auto text-sm"></div>
+        <form id="chatbotForm" class="p-4 border-t border-gray-200 flex">
+            <input type="text" id="chatbotInput" placeholder="Ask me anything..." class="flex-1 border rounded-l-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ppu-blue" required />
+            <button type="submit" class="bg-ppu-blue text-white px-4 rounded-r-md hover:bg-ppu-light-blue transition-colors">
+                Send
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const chatbotForm = document.getElementById('chatbotForm');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+
+    chatbotToggle.addEventListener('click', () => {
+        chatbotWindow.classList.toggle('hidden');
+        chatbotInput.focus();
+    });
+
+    chatbotClose.addEventListener('click', () => {
+        chatbotWindow.classList.add('hidden');
+    });
+
+    chatbotForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userMessage = chatbotInput.value.trim();
+        if (!userMessage) return;
+
+        // Display user message
+        const userMsgElem = document.createElement('div');
+        userMsgElem.className = 'mb-2 text-right';
+        userMsgElem.textContent = userMessage;
+        chatbotMessages.appendChild(userMsgElem);
+
+        chatbotInput.value = '';
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+        // Fetch chatbot response
+        try {
+            const response = await fetch('api/chatbot.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: userMessage })
+            });
+            const data = await response.json();
+
+            const botMsgElem = document.createElement('div');
+            botMsgElem.className = 'mb-2 text-left text-gray-700';
+            botMsgElem.textContent = data.response || 'Sorry, no response.';
+            chatbotMessages.appendChild(botMsgElem);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        } catch (error) {
+            const errorMsgElem = document.createElement('div');
+            errorMsgElem.className = 'mb-2 text-left text-red-600';
+            errorMsgElem.textContent = 'Error communicating with chatbot.';
+            chatbotMessages.appendChild(errorMsgElem);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+    });
+</script>
     <!-- Navigation Bar -->
     <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4">
@@ -110,18 +187,30 @@ session_start();
             <div class="text-center">
                 <h2 class="text-4xl font-bold text-white mb-10">Library Search</h2>
                 <div class="flex flex-wrap justify-center gap-4 mb-12">
-                    <button class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md">
-                        <i class="fas fa-book mr-2"></i>Books
-                    </button>
-                    <button class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md">
+                    <a href="library-catalog.html" class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md inline-flex items-center justify-center">
+                        <i class="fas fa-book mr-2"></i>Library Catalog
+                    </a>
+                    <a href="e-resources.html" class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md inline-flex items-center justify-center">
                         <i class="fas fa-database mr-2"></i>E-Resources
-                    </button>
-                    <button class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md">
+                    </a>
+                    <a href="theses-database.html" class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md inline-flex items-center justify-center">
+                        <i class="fas fa-file-alt mr-2"></i>Theses Database
+                    </a>
+                    <a href="research-papers.html" class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md inline-flex items-center justify-center">
+                        <i class="fas fa-file mr-2"></i>Research Papers
+                    </a>
+                    <a href="journals.html" class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md inline-flex items-center justify-center">
                         <i class="fas fa-newspaper mr-2"></i>Journals
-                    </button>
-                    <button class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md">
+                    </a>
+                    <a href="newsletters.html" class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md inline-flex items-center justify-center">
+                        <i class="fas fa-envelope mr-2"></i>Newsletters
+                    </a>
+                    <a href="digital-archives.html" class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md inline-flex items-center justify-center">
                         <i class="fas fa-globe mr-2"></i>Digital Archive
-                    </button>
+                    </a>
+                    <a href="photobooth.html" class="action-button bg-white text-ppu-green px-6 md:px-8 py-3 rounded-lg transition duration-300 font-medium shadow-md inline-flex items-center justify-center" title="Digital Photobooth">
+                        <i class="fas fa-camera mr-2"></i>Photobooth
+                    </a>
                 </div>
                 <div class="max-w-4xl mx-auto px-4">
                     <h3 class="text-2xl text-white mb-6">Search Library Resources</h3>
